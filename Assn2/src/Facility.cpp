@@ -5,20 +5,14 @@ Facility::Facility()
 
 }
 
-Facility::Facility(facID, facName, facAddress, facOperationStartTime, facOperationEndTime, hourlyRate, available)
+Facility::Facility(string facID, string facName, string facAddress, long facOperationStartTime, long facOperationEndTime, bool available)
 {
 	this->facID = facID;
 	this->facName = facName;
 	this->facAddress = facAddress;
 	this->facOperationStartTime = facOperationStartTime;
 	this->facOperationEndTime = facOperationEndTime;
-	this->hourlyRate = hourlyRate;
 	this->available = available;
-}
-
-Facility::~Facility()
-{
-
 }
 
 string Facility::getFacID()
@@ -61,26 +55,22 @@ void Facility::setFacOperationStartTime(long facOperationStartTime)
 {
 	this->facOperationStartTime = facOperationStartTime;
 }
+
 long Facility::getFacOperationEndTime()
 {
 	return facOperationEndTime;
 }
+
 void Facility::setFacOperationEndTime(long facOperationEndTime)
 {
 	this->facOperationEndTime = facOperationEndTime;
 }
-float Facility::getHourlyRate()
-{
-	return hourlyRate;
-}
-void Facility::setHourlyRate(float hourlyRate)
-{
-	this->hourlyRate = hourlyRate;
-}
+
 bool Facility::getAvailable()
 {
 	return available;
 }
+
 void Facility::setAvailable(bool available)
 {
 	this->available = available;

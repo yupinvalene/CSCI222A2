@@ -12,8 +12,7 @@ class Facility
 {
 	public:
 		Facility();
-		Facility(facID, facName, facAddress, facOperationStartTime, facOperationEndTime, hourlyRate, available);
-		~Facility();
+		Facility(string facID, string facName, string facAddress, long facOperationStartTime, long facOperationEndTime, bool available);
 		string getFacID();
 		void setFacID(string facID);
 		string getFacName();
@@ -24,8 +23,6 @@ class Facility
 		void setFacOperationStartTime(long facOperationStartTime);
 		long getFacOperationEndTime();
 		void setFacOperationEndTime(long facOperationEndTime);
-		float getHourlyRate();
-		void setHourlyRate(float hourlyRate);
 		bool getAvailable();
 		void setAvailable(bool available);
 
@@ -35,7 +32,6 @@ class Facility
 		string facAddress;
 		long facOperationStartTime;
 		long facOperationEndTime;
-		float hourlyRate;
 		bool available;
 
 };
