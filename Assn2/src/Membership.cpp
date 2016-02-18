@@ -33,7 +33,7 @@ float Membership::getMembershipFee() {
 }
 
 vector<string> Membership::getAccessRight() {
-	return accessRight();
+	return accessRight;
 }
 
 string Membership::getMembershipID() {
