@@ -1,0 +1,89 @@
+/*
+ * MemberHandler.cpp
+ *
+ *  Created on: 17 Feb 2016
+ *      Author: yupin
+ */
+
+#include "MemberHandler.h"
+
+MemberHandler::MemberHandler() {
+}
+
+MemberHandler::MemberHandler(vector<Member> vectorOfMember) {
+	this -> vectorOfMember = vectorOfMember;
+}
+
+MemberHandler::~MemberHandler() {
+}
+
+vector<Member> MemberHandler::getVectorOfMember() {
+	return vectorOfMember;
+}
+
+
+void MemberHandler::setVectorOfMember(vector<Member> vectorOfMember) {
+	this -> vectorOfMember = vectorOfMember;
+}
+
+void MemberHandler::readData(string fileName) {
+}
+
+void MemberHandler::writeData(string fileName) {
+}
+
+void MemberHandler::addMember(string name, string address,
+		string password, string email, string contact,
+		string dob, Membership membership, vector<Notification> vectorOfNotification) {
+
+	Member member;
+	member.setName(name);
+	member.setAddress(address);
+	member.setPassword(password);
+	member.setEmail(email);
+	member.setContact(contact);
+	member.setDOB(dob);
+	member.setMembership(membership);
+	member.setNotification(vectorOfNotification);
+
+	vectorOfMember.push_back(member);
+}
+
+void MemberHandler::deleteMember(string memberID) {
+	bool found = false;
+	for(int i = 0; i < vectorOfMember.size(); i++){
+		if(memberID.compare(vectorOfMember[i].getMemberID()) == 0){
+			vectorOfMember.erase(vectorOfMember.begin()+i);
+			cout << memberID << " is being removed.";
+			found = true;
+		}
+	}
+	if(found = false){
+		cout << memberID << " doesnt exist";
+	}
+
+}
+
+Member MemberHandler::findMember(string memberID) {
+	for(int i = 0; i < vectorOfMember.size(); i++){
+			if(memberID.compare(vectorOfMember[i].getMemberID()) == 0){
+				return vectorOfMember[i];
+			}
+	}
+}
+
+void MemberHandler::updateMember(string allocator1,
+		string allocator2, string allocator3, string allocator4,
+		string allocator5, string allocator6, string allocator7) {
+}
+
+vector<Notification> MemberHandler::getMemberNotification(string allocator) {
+}
+
+void MemberHandler::updateMembership(string allocator, Membership) {
+}
+
+void MemberHandler::pushNotification(string allocator, Notification) {
+}
+
+
