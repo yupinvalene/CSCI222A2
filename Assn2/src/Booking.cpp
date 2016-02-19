@@ -4,6 +4,7 @@ Booking::Booking()
 {
 	bookingID = "";
 	memberID = "";
+	date = "";
 	bookingStartTime = 0;
 	bookingEndTime = 0;
 	facID = "";
@@ -18,6 +19,11 @@ string Booking::getBookingID()
 string Booking::getMemberID()
 {
 	return memberID;
+}
+
+string Booking::getDate()
+{
+	return date;
 }
 
 int Booking::getBookingStartTime()
@@ -48,6 +54,11 @@ void Booking::setBookingID(string newID)
 void Booking::setMemberID(string newID)
 {
 	memberID = newID;
+}
+
+void Booking::setDate(string newDate)
+{
+	date = newDate;
 }
 
 void Booking::setBookingStartTime(int time)
