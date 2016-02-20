@@ -1,2 +1,3 @@
 facID,facName,facAddress,1100,1800,1
 facID2,facName2,facAddress2,1000,2100,0
+facID3,facName3,facAddress3,1200,2300,1

@@ -23,6 +23,7 @@ class FacilityHandler
 		void deleteFacility(string facID);
 		Facility findFacility(string facID);
 		string getAvailableFacilities();
+		vector<string> split(const string &s, char delim, vector<string> &linesplit);
 
 	private:
 		vector<Facility> vectorOfFacilities;
