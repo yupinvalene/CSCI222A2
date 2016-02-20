@@ -57,6 +57,7 @@ void FacilityHandler::readData()
        }
        i++;
     }
+    datafile.close();
 
 }
 
