@@ -1,0 +1,82 @@
+/*
+ * BookingHandler.cpp
+ *
+ *  Created on: 19 Feb 2016
+ *      Author: Dong Bin
+ */
+#include "Booking.h"
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+class BookingHandler
+{
+	private:
+		vector<Booking> vectorOfBooking;
+
+	public:
+		BookingHandler();
+		vector<Booking> getVectorOfBooking();
+		void setVectorOfBooking(vector<Booking>);
+		void readData();
+		void writeData(string );
+		void addBooking(string, string, int, int, string, string  );
+		void deleteBooking(string );
+		Booking findBooking(string );
+		void changeBooking(string );
+};
+
+BookingHandler::BookingHandler()
+{
+
+}
+
+void BookingHandler::setVectorOfBooking(vector<Booking> currentBooking)
+{
+	vectorOfBooking = currentBooking;
+}
+
+void BookingHandler::readData()
+{
+	cout << "test" << endl;
+}
+
+void BookingHandler::writeData(string data)
+{
+
+}
+
+void BookingHandler::addBooking(string memberID , string date, int startTime, int endTime, string facID, string facName)
+{
+
+}
+
+void BookingHandler::deleteBooking(string bookingID)
+{
+
+}
+
+Booking BookingHandler::findBooking(string bookingID)
+{
+
+		Booking temp;
+
+		return temp;
+}
+
+void BookingHandler::changeBooking(string BookingID)
+{
+
+}
+
+int main()
+{
+	Booking b;
+	BookingHandler bh;
+
+	bh.readData();
+}
+
+
+
