@@ -53,7 +53,7 @@ void FacilityHandler::readData()
        }
        if(i == 5)
        {
-    	   fh.addFacility(id, name, add, sTime, eTime, avail);
+    	   addFacility(id, name, add, sTime, eTime, avail);
        }
        i++;
     }
@@ -72,6 +72,13 @@ vector<string> FacilityHandler::split(const string &s, char delim, vector<string
 	return linesplit;
 }
 
+void FacilityHandler::addFacility(string facID, string facName, string facAddress, long facOperationStartTime, long facOperationEndTime, bool available)
+{
+    //cout << facID << "," << facName << "," << facAddress << "," << facOperationStartTime << "," << facOperationEndTime << "," << available << endl;
+    Facility fac(facID, facName, facAddress, facOperationStartTime, facOperationEndTime, available);
+    vectorOfFacilities.push_back(fac);
+}
+
 void FacilityHandler::writeData()
 {
 	ostringstream oss;
@@ -84,8 +91,7 @@ void FacilityHandler::writeData()
 		long sTime = f.getFacOperationStartTime();
 		long eTime = f.getFacOperationEndTime();
 		int avail = f.getAvailable();
-
-		oss << id << "," << name << "," << add << "," << sTime << "," << eTime << "," << avail << endl;
+		oss << id << "," << name << "," << add << "," << sTime << "," << eTime << "," << avail << "\n";
 	}
 
 	string info = oss.str();
@@ -96,24 +102,24 @@ void FacilityHandler::writeData()
 	outfile.close();
 }
 
-void FacilityHandler::addFacility(string facID, string facName, string facAddress, long facOperationStartTime, long facOperationEndTime, bool available)
+string FacilityHandler::deleteFacility(string facID)
 {
-    Facility fac(facID, facName, facAddress, facOperationStartTime, facOperationEndTime, available);
-    vectorOfFacilities.push_back(fac);
-}
-
-void FacilityHandler::deleteFacility(string facID)
-{
+	FacilityHandler fh;
     int i = 0;
     for(Facility f : vectorOfFacilities)
     {
         string id = f.getFacID();
         if(id == facID)
         {
-            vectorOfFacilities.erase(vectorOfFacilities.begin()+i);
+            vectorOfFacilities.erase(vectorOfFacilities.begin() + i);
+            writeData();
+            string f = "FacilityID: " + facID + " Deleted!\n";
+            return f;
         }
         i++;
     }
+    string nf = "FacilityID: " + facID + " Not Found\n";
+    return nf;
 }
 
 Facility FacilityHandler::findFacility(string facID)
@@ -128,24 +134,58 @@ Facility FacilityHandler::findFacility(string facID)
         }
         i++;
     }
+    cout << "FacilityID: "<< facID << " Not Found" << endl;
 }
 
 string FacilityHandler::getAvailableFacilities()
 {
     ostringstream os;
+    os << "Facilities Available\n===========================\n";
 	 for(Facility f : vectorOfFacilities)
 	 {
-	     string id = f.getFacID();
+	     string name = f.getFacName();
 	     int a = f.getAvailable();
-	     os << "Facilities Available\n===========================\n";
 
 	     if(a == 1)
 	     {
-	     	ostringstream os;
-	     	os << id << endl;
+	     	os << name << endl;
 	     }
 	 }
 	 string info;
 	 info = os.str();
 	 return info;
 }
+/*
+int main()
+{
+
+    FacilityHandler fh;
+    Facility f;
+
+
+
+    fh.readData();
+
+    string info = fh.getAvailableFacilities();
+    cout << info;
+
+    f = fh.findFacility("fac-2");
+    string name = f.getFacName();
+    cout << "Testing find facility\n" << name << endl;
+    
+    vector<Facility> vectfaci = fh.getVectorOfFacilities();
+    cout << "Testing delete facility\n" << endl;
+
+    string result = fh.deleteFacility("fac-2");
+    cout << result;
+    vectfaci = fh.getVectorOfFacilities();
+    
+    for(Facility f : vectfaci)
+    {
+    	string s = f.getFacID();
+	string name = f.getFacName();
+	cout << s << "," << name << endl;
+    }
+
+}
+*/

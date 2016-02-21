@@ -12,7 +12,7 @@ class Facility
 {
 	public:
 		Facility();
-		Facility(string facID, string facName, string facAddress, long facOperationStartTime, long facOperationEndTime, bool available);
+		Facility(string, string, string, long, long, bool);
 		string getFacID();
 		void setFacID(string facID);
 		string getFacName();

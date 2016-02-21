@@ -28,7 +28,7 @@ void Facility::setFacID(string facID)
 
 string Facility::getFacName()
 {
-	return facID;
+	return facName;
 }
 
 void Facility::setFacName(string facName)

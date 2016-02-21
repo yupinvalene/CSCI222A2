@@ -18,8 +18,7 @@ class FacilityHandler
 		void setVectorOfFacilities(vector<Facility> vectorOfFacilities);
 		void readData();
 		void writeData();
-		void addFacility(string facID, string facName, string facAddress, long facOperationStartTime,
-						long facOperationEndTime, bool available);
+		void addFacility(string, string, string, long, long, bool);
 		void deleteFacility(string facID);
 		Facility findFacility(string facID);
 		string getAvailableFacilities();
