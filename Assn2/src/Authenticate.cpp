@@ -79,7 +79,7 @@ void Authenticate::loadData()
 
 	// Codes for Employee // Need EmployeeDatabase.txt // Still need edit once received employee database // edit int i and int j
 	/*
-	datafile.open("EmployeeDatabase.txt");
+	datafile.open("employeeDatabase.txt");
 	getline(datafile, data, '\0'); // read the whole text file as string
 
 	while ((pos = data.find(delimiter)) != string::npos) // split the data string by \n delimiter
@@ -89,7 +89,7 @@ void Authenticate::loadData()
 	    data.erase(0, pos + delimiter.length());
 	}
 	int size = linesplit.size();
-	for(int i = 0; i < size; i+=8)
+	for(int i = 5; i < size; i+=6)
 	{
 		string user = linesplit[i];
 		vectEUser.push_back(user);
