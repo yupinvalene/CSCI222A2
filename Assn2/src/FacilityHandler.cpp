@@ -74,7 +74,7 @@ vector<string> FacilityHandler::split(const string &s, char delim, vector<string
 
 void FacilityHandler::writeData()
 {
-	ostringstream = oss;
+	ostringstream oss;
 
 	for(Facility f : vectorOfFacilities)
 	{
