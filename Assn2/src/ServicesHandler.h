@@ -9,6 +9,8 @@
 #define SRC_SERVICESHANDLER_H_
 
 #include "Services.h"
+#include "UIDGenerator.h"
+#include <fstream>
 
 class ServicesHandler{
 
@@ -20,15 +22,16 @@ class ServicesHandler{
 
 			vector<Services> getVectorOfServices();
 			void setVectorOfServices(vector<Services>);
-			void readData();
-			void writeData();
-			void addService(string, string, long, long, bool);
+			bool readData();
+			bool writeData();
+			void addService(string, float, long, long, bool);
 
-			void deleteService(string);
-			Services findService(string, string);
+			bool deleteService(string);
+			Services findService(string);
 			string getAvailableServices();
 
 	private:
+			vector<string> split(const string &s, char delim, vector<string> &linesplit);
 
 			vector<Services> vectorOfServices;
 

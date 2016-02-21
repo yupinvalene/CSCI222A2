@@ -10,12 +10,21 @@ void FacilityHandler::setVectorOfFacilities(vector<Facility> vectorOfFacilities)
 	this->vectorOfFacilities = vectorOfFacilities;
 }
 
-void FacilityHandler::readData()
+bool FacilityHandler::readData()
 {
-	FacilityHandler fh;
 	string data;
 	ifstream datafile;
 	datafile.open("facilitiesDatabase.txt");
+
+	if(!datafile)
+	{
+		cout << "facilitiesDatabase.txt"
+			 << " opened failed!!"
+			 << endl;
+
+		exit(-1);
+	}
+
 	getline(datafile, data, '\0'); // read the whole text file as string
 
 	string delimiter = "\n";
@@ -32,11 +41,11 @@ void FacilityHandler::readData()
 	while ((pos = data.find(delimiter)) != string::npos) // split the data string by \n delimiter
 	{
 	    line = data.substr(0, pos);
-	    fh.split(line, delim, linesplit);
+	    split(line, delim, linesplit);
 	    data.erase(0, pos + delimiter.length());
 	}
 	int i = 0;
-    for(string s : linesplit)
+    for(int i = 0; i < linesplit.size(); i++)
     {
     	if(i == 6)
     	{
@@ -44,21 +53,24 @@ void FacilityHandler::readData()
     	}
        switch(i)
        {
-           case 0: id = s; break;
-           case 1: name = s; break;
-           case 2: add = s; break;
-           case 3: sTime = atol(s.c_str()); break;
-           case 4: eTime = atol(s.c_str()); break;
-           case 5: avail = atoi(s.c_str()); break;
+           case 0: id = linesplit[i]; break;
+           case 1: name = linesplit[i]; break;
+           case 2: add = linesplit[i]; break;
+           case 3: sTime = atol(linesplit[i].c_str()); break;
+           case 4: eTime = atol(linesplit[i].c_str()); break;
+           case 5: avail = atoi(linesplit[i].c_str()); break;
        }
        if(i == 5)
        {
-    	   addFacility(id, name, add, sTime, eTime, avail);
+    	   Facility fac(id, name, add, sTime, eTime, avail);
+    	   vectorOfFacilities.push_back(fac);
+
        }
        i++;
     }
     datafile.close();
 
+    return true;
 }
 
 vector<string> FacilityHandler::split(const string &s, char delim, vector<string> &linesplit)
@@ -72,25 +84,27 @@ vector<string> FacilityHandler::split(const string &s, char delim, vector<string
 	return linesplit;
 }
 
-void FacilityHandler::addFacility(string facID, string facName, string facAddress, long facOperationStartTime, long facOperationEndTime, bool available)
+void FacilityHandler::addFacility(string facName, string facAddress, long facOperationStartTime, long facOperationEndTime, bool available)
 {
-    //cout << facID << "," << facName << "," << facAddress << "," << facOperationStartTime << "," << facOperationEndTime << "," << available << endl;
+	string facID = UIDGenerator::generate();
     Facility fac(facID, facName, facAddress, facOperationStartTime, facOperationEndTime, available);
     vectorOfFacilities.push_back(fac);
+    cout << vectorOfFacilities.size();
 }
 
-void FacilityHandler::writeData()
+bool FacilityHandler::writeData()
 {
 	ostringstream oss;
+	cout << vectorOfFacilities.size();
 
-	for(Facility f : vectorOfFacilities)
+	for(int i = 0; i < vectorOfFacilities.size(); i++)
 	{
-		string id = f.getFacID();
-		string name = f.getFacName();
-		string add = f.getFacAddress();
-		long sTime = f.getFacOperationStartTime();
-		long eTime = f.getFacOperationEndTime();
-		int avail = f.getAvailable();
+		string id = vectorOfFacilities[i].getFacID();
+		string name = vectorOfFacilities[i].getFacName();
+		string add = vectorOfFacilities[i].getFacAddress();
+		long sTime = vectorOfFacilities[i].getFacOperationStartTime();
+		long eTime = vectorOfFacilities[i].getFacOperationEndTime();
+		int avail = vectorOfFacilities[i].getAvailable();
 		oss << id << "," << name << "," << add << "," << sTime << "," << eTime << "," << avail << "\n";
 	}
 
@@ -98,39 +112,49 @@ void FacilityHandler::writeData()
 
 	ofstream outfile;
 	outfile.open("facilitiesDatabase.txt", ios::out | ios::trunc);
+
+	if(!outfile)
+	{
+		cout << "facilitiesDatabase.txt"
+			 << " opened for writing failed!!"
+			 << endl;
+
+		exit(-1);
+	}
+
 	outfile << info;
 	outfile.close();
+
+	return true;
 }
 
-string FacilityHandler::deleteFacility(string facID)
+bool FacilityHandler::deleteFacility(string facID)
 {
-	FacilityHandler fh;
     int i = 0;
-    for(Facility f : vectorOfFacilities)
+	for(int i = 0; i < vectorOfFacilities.size(); i++)
     {
-        string id = f.getFacID();
-        if(id == facID)
+        string id = vectorOfFacilities[i].getFacID();
+        if(id.compare(facID) == 0)
         {
             vectorOfFacilities.erase(vectorOfFacilities.begin() + i);
             writeData();
-            string f = "FacilityID: " + facID + " Deleted!\n";
-            return f;
+            return true;
         }
         i++;
     }
-    string nf = "FacilityID: " + facID + " Not Found\n";
-    return nf;
+
+    return false;
 }
 
 Facility FacilityHandler::findFacility(string facID)
 {
     int i = 0;
-    for(Facility f : vectorOfFacilities)
+	for(int i = 0; i < vectorOfFacilities.size(); i++)
     {
-        string id = f.getFacID();
-        if(id == facID)
+        string id = vectorOfFacilities[i].getFacID();
+        if(id.compare(facID) == 0)
         {
-            return f;
+            return vectorOfFacilities[i];
         }
         i++;
     }
@@ -141,10 +165,10 @@ string FacilityHandler::getAvailableFacilities()
 {
     ostringstream os;
     os << "Facilities Available\n===========================\n";
-	 for(Facility f : vectorOfFacilities)
+	for(int i = 0; i < vectorOfFacilities.size(); i++)
 	 {
-	     string name = f.getFacName();
-	     int a = f.getAvailable();
+	     string name = vectorOfFacilities[i].getFacName();
+	     int a = vectorOfFacilities[i].getAvailable();
 
 	     if(a == 1)
 	     {
@@ -155,37 +179,19 @@ string FacilityHandler::getAvailableFacilities()
 	 info = os.str();
 	 return info;
 }
-/*
-int main()
+
+void FacilityHandler::viewAllFacility()
 {
-
-    FacilityHandler fh;
-    Facility f;
-
-
-
-    fh.readData();
-
-    string info = fh.getAvailableFacilities();
-    cout << info;
-
-    f = fh.findFacility("fac-2");
-    string name = f.getFacName();
-    cout << "Testing find facility\n" << name << endl;
-    
-    vector<Facility> vectfaci = fh.getVectorOfFacilities();
-    cout << "Testing delete facility\n" << endl;
-
-    string result = fh.deleteFacility("fac-2");
-    cout << result;
-    vectfaci = fh.getVectorOfFacilities();
-    
-    for(Facility f : vectfaci)
-    {
-    	string s = f.getFacID();
-	string name = f.getFacName();
-	cout << s << "," << name << endl;
-    }
+	for(int i = 0; i < vectorOfFacilities.size(); i++)
+	{
+		string id = vectorOfFacilities[i].getFacID();
+		string name = vectorOfFacilities[i].getFacName();
+		string add = vectorOfFacilities[i].getFacAddress();
+		long sTime = vectorOfFacilities[i].getFacOperationStartTime();
+		long eTime = vectorOfFacilities[i].getFacOperationEndTime();
+		int avail = vectorOfFacilities[i].getAvailable();
+		cout << id << "," << name << "," << add << "," << sTime << "," << eTime << "," << avail << endl << endl;
+	}
 
 }
-*/
+

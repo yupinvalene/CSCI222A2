@@ -4,23 +4,14 @@
 #ifndef MANAGER_H
 #define MANAGER_H
 
-#include <iostream>
-#include <cstring>
-#include <cstdlib>
-#include <vector>
-
-//#include "Employee.h"
-//#include "Notification.h"
-//#include "Membership.h"
-//#include "MembershipBuilder.h"
+#include "Employee.h"
 
 
 using namespace std;
 
-class Manager{
+class Manager: public Employee{
 	public:
 		Manager();
-		Manager(/*Employee*/, string, string);
 		~Manager();
 		
 		//accessor
@@ -36,5 +27,6 @@ class Manager{
 		string password;
 
 };
+
 #endif 
 

@@ -13,7 +13,7 @@ UIDGenerator::UIDGenerator() {
 UIDGenerator::~UIDGenerator() {
 }
 
-string UIDGenerator::generate(vector<string> existUID)
+string UIDGenerator::generate()
 {
 	srand(time(NULL));
 	int randomNo1;

@@ -25,23 +25,29 @@ void MembershipBuilder::setVectorOfMembership(vector<Membership> vectorOfMembers
 	this -> vectorOfMembership = vectorOfMembership;
 }
 
-Membership MembershipBuilder::buildMembership(string membershipID,
+void MembershipBuilder::buildMembership(string membershipID,
 		string rank, float membershipFee, vector<string> vectorOfAccessRight) {
 	Membership membership;
 	membership.setMembershipID(membershipID);
 	membership.setRank(rank);
 	membership.setMembershipFee(membershipFee);
 	membership.setAccessRight(vectorOfAccessRight);
-	return membership;
+	vectorOfMembership.push_back(membership);
 }
 
-vector<Membership> MembershipBuilder::readFile(string allocator) {
+bool MembershipBuilder::readFile() {
 
 }
 
-void MembershipBuilder::writeFile(string allocator) {
+bool MembershipBuilder::writeFile() {
 
 }
+
+void MembershipBuilder::setFilename(string fileName)
+{
+	this -> fileName = fileName;
+}
+
 
 void MembershipBuilder::printMembership(string membershipID) {
 	for(int i = 0; i < vectorOfMembership.size(); i++){
@@ -51,8 +57,31 @@ void MembershipBuilder::printMembership(string membershipID) {
 				 << "Fee: $" << vectorOfMembership[i].getMembershipFee();
 		}
 	}
+}
+
+void MembershipBuilder::printAllMemberships()
+{
+	for(int i = 0; i < vectorOfMembership.size(); i++){
+
+		cout << "MemberID: " << vectorOfMembership[i].getMembershipID()
+			 << "Rank: " << vectorOfMembership[i].getRank()
+			 << "Fee: $" << vectorOfMembership[i].getMembershipFee();
+	}
+}
+
+bool MembershipBuilder::getMembership(string membershipID, Membership &membership)
+{
+	for(int i = 0; i < vectorOfMembership.size(); i++){
+		if(membershipID.compare(vectorOfMembership[i].getMembershipID()) == 0){
+			membership = vectorOfMembership[i];
+			return true;
+		}
+	}
+
+	return false;
 
 }
+
 
 void MembershipBuilder::amendMembership(string membershipID, string rank,float fee, vector<string> accessRight) {
 
@@ -61,7 +90,7 @@ void MembershipBuilder::amendMembership(string membershipID, string rank,float f
 			if(rank.compare(vectorOfMembership[i].getRank()) == 0){
 				vectorOfMembership[i].setRank(rank);
 			}
-			else if(fee == vectorOfMembership[i].getMembershipFee){
+			else if(fee == vectorOfMembership[i].getMembershipFee()){
 				vectorOfMembership[i].setMembershipFee(fee);
 				vectorOfMembership[i].setAccessRight(accessRight);
 			}

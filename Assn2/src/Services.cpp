@@ -10,13 +10,14 @@ Services::Services(){
 
 }
 
-Services::Services(string svcID, string svcName, long svcOperationStartTime, long svcOperationEndTime, bool available){
+Services::Services(string svcID, string svcName, float fee, long svcOperationStartTime, long svcOperationEndTime, bool available){
 
 	this->svcID = svcID;
 	this->svcName = svcName;
 	this->svcOperationStartTime = svcOperationStartTime;
 	this->svcOperationEndTime = svcOperationEndTime;
 	this->available = available;
+	this -> fee = fee;
 
 }
 
@@ -42,6 +43,11 @@ void Services::setSvcOperationStartTime(long svcOperationStartTime){
 
 }
 
+void Services::setFee(float) {
+	this -> fee = fee;
+
+}
+
 void Services::setSvcOperationEndTime(long svcOperationEndTime){
 
 	this->svcOperationEndTime = svcOperationEndTime;
@@ -58,6 +64,10 @@ string Services::getSvcID(){
 
 	return svcID;
 
+}
+
+float Services::getFee(){
+	return fee;
 }
 
 string Services::getSvcName(){

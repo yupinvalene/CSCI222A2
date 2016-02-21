@@ -19,7 +19,7 @@ Member::Member() {
 
 Member::Member(string name, string address, string memberID,
 		string password, string email, string contact,
-		string creditCardNo, Membership membership, vector<Notification> vectorOfNotification) {
+		string creditCardNo, Membership membership) {
 	this -> name = name;
 	this -> address = address;
 	this -> password = password;
@@ -28,7 +28,6 @@ Member::Member(string name, string address, string memberID,
 	this -> contact = contact;
 	this -> creditCardNo = creditCardNo;
 	this -> membership = membership;
-	this -> vectorOfNotification = vectorOfNotification;
 }
 
 

@@ -15,7 +15,7 @@
 
 #include "Notification.h"
 #include "Membership.h"
-#include "MembershipBuilder.h"
+//#include "MembershipBuilder.h"
 
 
 using namespace std;
@@ -23,7 +23,7 @@ using namespace std;
 class Member{
 	public:
 		Member();
-		Member(string, string, string, string, string, string, string, Membership, vector<Notification>);
+		Member(string, string, string, string, string, string, string, Membership);
 		~Member();
 		
 		//accessor

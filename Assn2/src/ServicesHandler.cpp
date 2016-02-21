@@ -1,20 +1,14 @@
 #include "ServicesHandler.h"
-int main()
-{
-	cout << "test" << endl;
-	ServicesHandler s;
-	s.readData();
-}
+//int main()
+//{
+//	cout << "test" << endl;
+//	ServicesHandler s;
+//	s.readData();
+//}
 
 //constructors and destructor
 ServicesHandler::ServicesHandler(){
-/*
-	this->vectorOfServices = vectorOfServices.setSvcID("");
-	this->vectorOfServices = vectorOfServices.setSvcName("");
-	this->vectorOfServices = vectorOfServices.setSvcOperationStartTime(0);
-	this->vectorOfServices = vectorOfServices.setSvcOperationEndTime(0);
-	this->vectorOfServices = vectorOfServices.setAvailable(false);
-	*/
+
 }
 
 ServicesHandler::~ServicesHandler(){
@@ -32,96 +26,151 @@ void ServicesHandler::setVectorOfServices(vector<Services> vectorOfServices){
 
 }
 
-void ServicesHandler::readData(){
+bool ServicesHandler::readData(){
 
 	string data;
 	ifstream datafile;
 	datafile.open("servicesDatabase.txt");
 	getline(datafile, data, '\0'); // read the whole text file as string
 
-	string delimit = ",";
 	string delimiter = "\n";
+	char delim = ',';
 	size_t pos = 0;
-	size_t pos2 = -2;
-
+	size_t pos2 = 0;
 	string line;
-	string info;
-	long time;
-	int avail;
 
-	string id, name, add;
+	string id, name;
 	long sTime, eTime;
+	float fee;
+	int avail;
+	vector<string> linesplit;
 
 	while ((pos = data.find(delimiter)) != string::npos) // split the data string by \n delimiter
 	{
-	    line = data.substr(0, pos);
-	    int i = 0;
-	    while ((pos2 = line.find(delimit)) != string::npos) // split the data string by , delimiter
-		{
-	    		cout << info << endl;
-				info = line.substr(0, pos2);
-				if(i == 0)
-				{
-					id = info;
-				}
-				if(i == 1)
-				{
-					name = info;
-				}
-				if(i == 2)
-				{
-					sTime = atol(info.c_str());
-				}
-				if(i == 3)
-				{
-					eTime = atol(info.c_str());
-				}
-
-				line.erase(0, pos2 + delimit.length());
-				i++;
-		}
-	    data.erase(0, pos + delimiter.length());
+		line = data.substr(0, pos);
+		split(line, delim, linesplit);
+		data.erase(0, pos + delimiter.length());
 	}
-
+	int i = 0;
+	for(int i = 0; i < linesplit.size(); i++)
+	{
+		if(i == 6)
+		{
+			i = 0;
+		}
+	   switch(i)
+	   {
+		   case 0: id = linesplit[i]; break;
+		   case 1: name = linesplit[i]; break;
+		   case 2: fee = atof(linesplit[i].c_str()); break;
+		   case 3: sTime = atol(linesplit[i].c_str()); break;
+		   case 4: eTime = atol(linesplit[i].c_str()); break;
+		   case 5: avail = atol(linesplit[i].c_str()); break;
+	   }
+	   if(i == 5)
+	   {
+		   Services service(id, name, fee, sTime, eTime, avail);
+		   vectorOfServices.push_back(service);
+	   }
+	   i++;
+	}
 	datafile.close();
 
+	return true;
 }
 
-void ServicesHandler::writeData(){
+vector<string> ServicesHandler::split(const string &s, char delim, vector<string> &linesplit)
+{
+	stringstream ss(s);
+	string item;
+	while(getline(ss, item, delim))
+	{
+		linesplit.push_back(item);
+	}
+	return linesplit;
 }
 
-void ServicesHandler::addService(string svcID, string svcName, long svcOperationStartTime, long svcOperationEndTime, bool available){
+bool ServicesHandler::writeData(){
+	ostringstream oss;
+
+	for(int i = 0; i < vectorOfServices.size(); i++)
+	{
+		string id = vectorOfServices[i].getSvcID();
+		string name = vectorOfServices[i].getSvcName();
+		float fee = vectorOfServices[i].getFee();
+		long sTime = vectorOfServices[i].getSvcOperationStartTime();
+		long eTime = vectorOfServices[i].getSvcOperationEndTime();
+		int avail = vectorOfServices[i].getAvailable();
+
+		oss << id << "," << name << "," << fee << "," << sTime << "," << eTime << "," << avail << "\n";
+	}
+
+	string info = oss.str();
+
+	ofstream outfile;
+	outfile.open("servicesDatabase.txt", ios::out | ios::trunc);
+	outfile << info;
+	outfile.close();
+
+	return true;
 }
 
-void ServicesHandler::deleteService(string svcID){
+void ServicesHandler::addService(string svcName, float fee, long svcOperationStartTime, long svcOperationEndTime, bool available){
+	string svcID = UIDGenerator::generate();
+
+	Services service(svcID, svcName, fee, svcOperationStartTime, svcOperationEndTime, available);
+	vectorOfServices.push_back(service);
+
 }
 
-Services ServicesHandler::findService(string svcID, string svcName){
-
-/*	for(int i = 0; i < vectorOfServices.size(); i++){
-
-		if(vectorOfServices.getID == svcID || vectorOfServices.getName == svcName){
-
-			cout << vectorOfServices.getSvcID << "\t" << vectorOfServices.getSvcName << endl;
-
+bool ServicesHandler::deleteService(string svcID){
+	int i = 0;
+	for(int i = 0; i < vectorOfServices.size(); i++)
+	{
+		string id = vectorOfServices[i].getSvcID();
+		if(id.compare(svcID))
+		{
+			vectorOfServices.erase(vectorOfServices.begin() + i);
+			writeData();
+			return true;
 		}
+		i++;
+	}
 
-	}*/
+	return false;
+}
 
-	return vectorOfServices;
+Services ServicesHandler::findService(string svcID){
 
+	int i = 0;
+	for(int i = 0; i < vectorOfServices.size(); i++)
+	{
+		string id = vectorOfServices[i].getSvcID();
+		if(id.compare(svcID) == 0)
+		{
+			return vectorOfServices[i];
+		}
+		i++;
+	}
+	cout << "Service ID: "<< svcID << " Not Found" << endl;
 }
 
 string ServicesHandler::getAvailableServices(){
 
-/*	for(int i = 0; i < vectorOfServices.size(); i++){
+	ostringstream os;
+	os << "Services Available\n===========================\n";
+	for(int i = 0; i < vectorOfServices.size(); i++)
+	 {
+		 string name = vectorOfServices[i].getSvcName();
+		 int a = vectorOfServices[i].getAvailable();
 
-		if(vectorOfServices.getAvailable == true){
-
-			cout << vectorOfServices.getSvcID << "\t" << vectorOfServices.getSvcName << endl;
-
-		}
-
-	}*/
+		 if(a == 1)
+		 {
+			os << name << endl;
+		 }
+	 }
+	 string info;
+	 info = os.str();
+	 return info;
 
 }

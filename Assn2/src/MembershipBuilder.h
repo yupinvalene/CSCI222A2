@@ -27,15 +27,19 @@ class MembershipBuilder{
 
 		void setVectorOfMembership(vector<Membership>);
 
-		Membership buildMembership(string, string, float, vector<string>);
-		vector<Membership> readFile(string);
-		void writeFile(string);
+		void buildMembership(string, string, float, vector<string>);
+		void setFilename(string);
+		bool readFile();
+		bool writeFile();
 		void printMembership(string);
+		void printAllMemberships();
 		void amendMembership(string, string, float, vector<string>);
+		bool getMembership(string, Membership&);
 
 
 	private:
 		vector<Membership> vectorOfMembership;
+		string fileName;
 };
 
 

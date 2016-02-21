@@ -6,11 +6,11 @@
  */
 
 #include "Booking.h"
-#include "Booking.cpp"
 #include <iostream>
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <cstdlib>
 
 using namespace std;
 

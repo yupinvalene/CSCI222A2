@@ -9,7 +9,7 @@ class Services{
 
 			//constructors and destructor
 			Services();
-			Services(string, string, long, long, bool);
+			Services(string, string, float, long, long, bool);
 			~Services();
 
 			//setters
@@ -18,6 +18,7 @@ class Services{
 			void setSvcOperationStartTime(long);
 			void setSvcOperationEndTime(long);
 			void setAvailable(bool);
+			void setFee(float);
 
 			//getters
 			string getSvcID();
@@ -25,12 +26,14 @@ class Services{
 			long getSvcOperationStartTime();
 			long getSvcOperationEndTime();
 			bool getAvailable();
+			float getFee();
 
 	private:
 
 			//data members
 			string svcID;
 			string svcName;
+			float fee;
 			long svcOperationStartTime;
 			long svcOperationEndTime;
 			bool available;

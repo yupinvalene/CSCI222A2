@@ -9,34 +9,22 @@ Manager::Manager() {
 
 }
 
-Manager::Manager(Employee employee, string username, string password) {
-	this -> username = username;
-	this -> password = password;
-	this -> password = password;
-	this -> memberID = memberID;
-	this -> email = email;
-	this -> contact = contact;
-	this -> creditCardNo = creditCardNo;
-	this -> membership = membership;
-	this -> vectorOfNotification = vectorOfNotification;
-}
-
 
 Manager::~Manager() {
 
 }
 
 string Manager::getUsername() {
-	return name;
+	return username;
 }
 
 string Manager::getPassword() {
-	return address;
+	return password;
 }
 
 
 void Manager::setUsername(string username) {
-	this -> name = name;
+	this -> username = username;
 }
 
 void Manager::setPassword(string password) {

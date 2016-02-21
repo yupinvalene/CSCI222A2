@@ -5,7 +5,7 @@
 //#include <vector>
 //using namespace std;
 
-#include "Facility.h"
+//#include "Facility.h"
 #include "Member.h"
 
 class ReportGenerator{
@@ -14,9 +14,9 @@ class ReportGenerator{
 
 			ReportGenerator();
 			~ReportGenerator();
-			void printFacilitiesUsageSummary(vector<Facility>);
-			void printRentalBehaviour(vector<Member>, vector<Facility>);
-			void printBookingSummary(vector<Member>);
+//			void printFacilitiesUsageSummary(vector<Facility>);
+//			void printRentalBehaviour(vector<Member>, vector<Facility>);
+//			void printBookingSummary(vector<Member>);
 
 	private:
 

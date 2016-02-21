@@ -31,9 +31,10 @@ class MemberHandler{
 	void setVectorOfMember(vector<Member>);
 	
 	//function
-	void readData(string);
-	void writeData(string);
-	void addMember(string, string, string, string, string, string, Membership, vector<Notification>);
+	void setFilename(string);
+	bool readData();
+	bool writeData();
+	void addMember(string, string, string, string, string, string, Membership);
 	void deleteMember(string);
 	Member findMember(string);
 	void updateMember(string, string, string, string, string, string, string, string);
@@ -44,6 +45,7 @@ class MemberHandler{
 	
 	private:
 	vector<Member> vectorOfMember;
+	string fileName;
 };
 
 

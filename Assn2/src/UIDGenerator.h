@@ -2,7 +2,7 @@
  * UIDGenerator.h
  *
  *  Created on: 20 Feb 2016
- *      Author: chingyeow
+ *      Author: yupinvalene
  */
 
 #ifndef SRC_UIDGENERATOR_H_
@@ -23,7 +23,7 @@ public:
 	UIDGenerator();
 	virtual ~UIDGenerator();
 
-	static string generate(vector<string>);
+	static string generate();
 };
 
 #endif /* SRC_UIDGENERATOR_H_ */
