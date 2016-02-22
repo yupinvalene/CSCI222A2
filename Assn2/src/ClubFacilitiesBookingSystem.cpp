@@ -747,11 +747,11 @@ void ClubFacilitiesBookingSystem::updateClubMember()
                                             cout << "Enter new access rights: "; cin.ignore(); getline(cin, input);
                                             ars.push_back(input);
                                             cout << "Add more access rights? (Y/N): "; cin >> yn;
-                                            if(yn == Y || yn == y)
+                                            if(yn == 'Y' || yn == 'y')
                                             {
                                                 cont = 1;
                                             }
-                                            else if(yn == N || yn == n)
+                                            else if(yn == 'N' || yn == 'n')
                                             {
                                                 cont = 0;
                                             }
