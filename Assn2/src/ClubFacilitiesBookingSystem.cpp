@@ -78,8 +78,12 @@ Mr Tian
 
 ClubFacilitiesBookingSystem::ClubFacilitiesBookingSystem()
 {
-	memberHandler.setFilename("memberDatabase");
-	membershipBuilder.setFilename("membershipDatabase");
+	memberHandler.setFilename("memberDatabase.txt");
+	memberHandler.readData();
+	membershipBuilder.setFilename("membershipDatabase.txt");
+	membershipBuilder.readFile();
+	facilityHandler.readData();
+	serviceHandler.readData();
 }
 
 ClubFacilitiesBookingSystem::~ClubFacilitiesBookingSystem()
@@ -93,10 +97,6 @@ void ClubFacilitiesBookingSystem::run()
 		 << "=============================================" << endl;
 
 	displayManagerMenu();
-
-	cout << "pass";
-
-	facilityHandler.readData();
 
 
 }
@@ -198,7 +198,7 @@ void ClubFacilitiesBookingSystem::createClubMember()
 	int month = 0;
 	int year = 0;
 	int day = 0;
-	ostringstream ss;
+	ostringstream daySS, monthSS, yearSS;
 
 	cout << "Create Club Member" << endl
 		 << "===================" << endl
@@ -210,22 +210,17 @@ void ClubFacilitiesBookingSystem::createClubMember()
 	getline(cin, name);
 
 	cout << "Enter Identification Number: ";
-	cin.ignore();
 
 	getline(cin, memberID);
 
 	cout << "Enter Day of Birth: ";
-	cin.ignore();
-
 	cin >> day;
 
 	cout << "Enter Month of Birth: ";
-	cin.ignore();
 
 	cin >> month;
 
 	cout << "Enter Year of Birth: ";
-	cin.ignore();
 
 	cin >> year;
 
@@ -235,48 +230,41 @@ void ClubFacilitiesBookingSystem::createClubMember()
 	getline(cin, address);
 
 	cout << "Enter Email: ";
-	cin.ignore();
 
 	getline(cin, email);
 
 	cout << "Enter Contact Number: ";
-	cin.ignore();
 
 	getline(cin, contact);
 
 	cout << "Enter Credit Card Number: ";
-	cin.ignore();
 	getline(cin, creditCardNo);
 
-	ss << day;
+	daySS << day;
 
-	if(ss.str().length() < 2)
+	if(daySS.str().length() < 2)
 	{
-		dob = "0" + ss.str();
+		dob = "0" + daySS.str();
 	}
 	else
 	{
-		dob = ss.str();
+		dob = daySS.str();
 	}
 
-	ss.clear();
+	monthSS << month;
 
-	ss << month;
-
-	if(ss.str().length() < 2)
+	if(monthSS.str().length() < 2)
 	{
-		dob = "0" + ss.str();
+		dob.append("0" + monthSS.str());
 	}
 	else
 	{
-		dob.append(ss.str());
+		dob.append(monthSS.str());
 	}
 
-	ss.clear();
+	yearSS << year;
 
-	ss << year;
-
-	dob.append(ss.str());
+	dob.append(yearSS.str());
 
 	membershipBuilder.printAllMemberships();
 
@@ -285,19 +273,17 @@ void ClubFacilitiesBookingSystem::createClubMember()
 	do
 	{
 		cout << "Please enter the membership ID of the membership you desired: ";
-  cin.ignore();
 		getline(cin, membershipID);
+		cout << membershipID;
 	}
 	while(!membershipBuilder.getMembership(membershipID, membership));
 
 	do
 	{
 		cout << "Enter Password: ";
-  cin.ignore();
 		getline(cin, tempPw);
 
 		cout << "Enter password again: ";
-  cin.ignore();
 		getline(cin, password);
 
 		if(password.compare(tempPw) != 0)
@@ -307,7 +293,7 @@ void ClubFacilitiesBookingSystem::createClubMember()
 	}
 	while(password.compare(tempPw) != 0);
 
-	memberHandler.addMember(name, address, password, email, contact, dob, membership);
+	memberHandler.addMember(name, address, password, email, contact, dob, creditCardNo, membership);
 
 	if(memberHandler.writeData())
 	{
@@ -335,25 +321,28 @@ void ClubFacilitiesBookingSystem::createClubFacility()
 		 << "====================" << endl
 		 << endl;
 
+	cin.get();
+
 	cout << "Enter Facility Name: ";
-	cin.ignore();
 	getline(cin, name);
 
 	cout << "Enter Facility Address: ";
-	cin.ignore();
 	getline(cin, address);
 
 	cout << "Enter Start Time: ";
-	//cin.ignore();
 	cin >> operationStartTime;
+	cin.clear();
+	cin.ignore(100, '\n');
 
 	cout << "Enter End Time: ";
-	//cin.ignore();
 	cin >> operentaionEndTime;
+	cin.clear();
+	cin.ignore(100, '\n');
 
 	cout << "Is it available for booking?(y/n): ";
-	cin.ignore();
 	cin >> available;
+	cin.clear();
+	cin.ignore(100, '\n');
 
 	if(available == 'y')
 	{
@@ -368,11 +357,11 @@ void ClubFacilitiesBookingSystem::createClubFacility()
 
 	if(facilityHandler.writeData())
 	{
-		cout << name << " added successfully!" << endl << endl;
+		cout << "Facility added successfully!" << endl << endl;
 	}
 	else
 	{
-		cout << name << " add fail!" << endl << endl;
+		cout << "Facility add fail!" << endl << endl;
 	}
 
 	return;
@@ -382,7 +371,7 @@ void ClubFacilitiesBookingSystem::createClubMembership()
 {
 	string membershipID;
 	string rank;
-	float membershipFee;
+	double membershipFee;
 	string temp;
 	vector<string> accessRight;
 	char delim = ',';
@@ -393,17 +382,14 @@ void ClubFacilitiesBookingSystem::createClubMembership()
 
 	cout << "Enter Membership ID: ";
 	cin.ignore();
-
 	getline(cin, membershipID);
 
 	cout << "Enter rank: ";
-	cin.ignore();
 
-	getline(cin, membershipID);
+	getline(cin, rank);
 
 
 	cout << "Enter Membership Fee: ";
-	cin.ignore();
 
 	cin >> membershipFee;
 
@@ -424,7 +410,7 @@ void ClubFacilitiesBookingSystem::createClubMembership()
 
 	membershipBuilder.buildMembership(membershipID, rank, membershipFee, accessRight);
 
-	if(facilityHandler.writeData())
+	if(membershipBuilder.writeFile())
 	{
 		cout << rank << " added successfully!" << endl << endl;
 	}
@@ -448,34 +434,23 @@ void ClubFacilitiesBookingSystem::createClubService()
 	cout << "Create Club Service" << endl
 		 << "======================" << endl
 	 	 << endl;
-
-	cout << "Enter Service Name: ";
 	cin.ignore();
 
-	getline(cin, name);
-
 	cout << "Enter Service Name: ";
-	cin.ignore();
-
 	getline(cin, name);
 
 	cout << "Enter Hourly Rate: ";
-	cin.ignore();
-
 	cin >> fee;
 
 	cout << "Enter Start Time: ";
-	cin.ignore();
 
 	cin >> operationStartTime;
 
 	cout << "Enter End Time: ";
-	cin.ignore();
 
 	cin >> operentaionEndTime;
 
 	cout << "Is it available for booking?(y/n): ";
-	cin.ignore();
 
 	cin >> available;
 
