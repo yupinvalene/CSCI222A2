@@ -285,7 +285,7 @@ void ClubFacilitiesBookingSystem::createClubMember()
 	do
 	{
 		cout << "Please enter the membership ID of the membership you desired: ";
-
+  cin.ignore();
 		getline(cin, membershipID);
 	}
 	while(!membershipBuilder.getMembership(membershipID, membership));
@@ -293,11 +293,11 @@ void ClubFacilitiesBookingSystem::createClubMember()
 	do
 	{
 		cout << "Enter Password: ";
-
+  cin.ignore();
 		getline(cin, tempPw);
 
 		cout << "Enter password again: ";
-
+  cin.ignore();
 		getline(cin, password);
 
 		if(password.compare(tempPw) != 0)
