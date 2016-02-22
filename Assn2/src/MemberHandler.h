@@ -12,6 +12,7 @@
 #include <cstring>
 #include <cstdlib>
 #include <vector>
+#include <fstream>
 
 #include "Member.h"
 #include "MembershipBuilder.h"
@@ -33,7 +34,7 @@ class MemberHandler{
 	void setVectorOfMember(vector<Member>);
 	
 	//function
-	void setFilename(string);
+	void setFilename(char*);
 	bool readData();
 	bool writeData();
 	void addMember(string, string, string, string, string, string,string, Membership);
@@ -47,7 +48,7 @@ class MemberHandler{
 	
 	private:
 	vector<Member> vectorOfMember;
-	string fileName;
+	char* fileName;
 	vector<string> split(const string &s, char delim, vector<string> &linesplit);
 
 	MembershipBuilder mb;

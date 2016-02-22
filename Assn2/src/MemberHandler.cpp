@@ -28,7 +28,7 @@ void MemberHandler::setVectorOfMember(vector<Member> vectorOfMember) {
 	this -> vectorOfMember = vectorOfMember;
 }
 
-void MemberHandler::setFilename(string fileName)
+void MemberHandler::setFilename(char* fileName)
 {
 	this -> fileName = fileName;
 }
@@ -36,7 +36,7 @@ void MemberHandler::setFilename(string fileName)
 bool MemberHandler::readData() {
 	string data;
 	ifstream datafile;
-	datafile.open(fileName);
+	datafile.open(fileName, ifstream::in);
 
 	if(!datafile)
 	{

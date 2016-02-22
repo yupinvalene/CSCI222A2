@@ -30,7 +30,7 @@ class MembershipBuilder{
 		void setVectorOfMembership(vector<Membership>);
 
 		void buildMembership(string, string, double, vector<string>);
-		void setFilename(string);
+		void setFilename(char*);
 		bool readFile();
 		bool writeFile();
 		void printMembership(string);
@@ -41,7 +41,7 @@ class MembershipBuilder{
 
 	private:
 		vector<Membership> vectorOfMembership;
-		string fileName;
+		char* fileName;
 		vector<string> split(const string &s, char delim, vector<string> &linesplit);
 
 };

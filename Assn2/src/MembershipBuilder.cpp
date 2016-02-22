@@ -38,7 +38,7 @@ void MembershipBuilder::buildMembership(string membershipID,
 bool MembershipBuilder::readFile() {
 	string data;
 	ifstream datafile;
-	datafile.open(fileName);
+	datafile.open(fileName, ifstream::in);
 
 	if(!datafile)
 	{
@@ -153,7 +153,7 @@ bool MembershipBuilder::writeFile() {
 		return true;
 }
 
-void MembershipBuilder::setFilename(string fileName)
+void MembershipBuilder::setFilename(char* fileName)
 {
 	this -> fileName = fileName;
 }
