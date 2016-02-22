@@ -44,14 +44,14 @@ bool FacilityHandler::readData()
 	    split(line, delim, linesplit);
 	    data.erase(0, pos + delimiter.length());
 	}
-	int i = 0;
+	int n = 0;
     for(int i = 0; i < linesplit.size(); i++)
     {
-    	if(i == 6)
+    	if(n == 6)
     	{
-    		i = 0;
+    		n = 0;
     	}
-       switch(i)
+       switch(n)
        {
            case 0: id = linesplit[i]; break;
            case 1: name = linesplit[i]; break;
@@ -60,13 +60,13 @@ bool FacilityHandler::readData()
            case 4: eTime = atol(linesplit[i].c_str()); break;
            case 5: avail = atoi(linesplit[i].c_str()); break;
        }
-       if(i == 5)
+       if(n == 5)
        {
     	   Facility fac(id, name, add, sTime, eTime, avail);
     	   vectorOfFacilities.push_back(fac);
 
        }
-       i++;
+       n++;
     }
     datafile.close();
 
