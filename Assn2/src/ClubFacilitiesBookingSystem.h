@@ -30,6 +30,7 @@ class ClubFacilitiesBookingSystem{
 		void searchClubMember();
 		void updateClubFacilities();
 		void updateClubMember();
+		void deleteClubFacilities();
 		vector<string> split(const string &s, char delim, vector<string> &linesplit);
 
 	private:

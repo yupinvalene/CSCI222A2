@@ -752,6 +752,29 @@ void ClubFacilitiesBookingSystem::updateClubMember()
     }
 }
 
+void ClubFacilitiesBookingSystem::deleteClubFacilities()
+{
+    string facID;
+    int choice;
+    bool found = 0;
+	vector<Facility> vectFac;
+
+	cout << "Delete Club Facilities" << endl
+		 << "======================" << endl
+	 	 << endl;
+
+	cout << "Enter Facility ID: ";
+	cin.ignore();
+	getline(cin, facID);
+
+    found = facilityHandler.deleteFacility(facID);
+
+    if(found == 0)
+    {
+        cout << "Facility not found\n" << endl;
+    }
+}
+
 vector<string> ClubFacilitiesBookingSystem::split(const string &s, char delim, vector<string> &linesplit)
 {
 	stringstream ss(s);
