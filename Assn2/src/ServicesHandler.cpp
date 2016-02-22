@@ -1,10 +1,4 @@
 #include "ServicesHandler.h"
-//int main()
-//{
-//	cout << "test" << endl;
-//	ServicesHandler s;
-//	s.readData();
-//}
 
 //constructors and destructor
 ServicesHandler::ServicesHandler(){
