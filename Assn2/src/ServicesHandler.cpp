@@ -134,19 +134,20 @@ bool ServicesHandler::deleteService(string svcID){
 	return false;
 }
 
-Services ServicesHandler::findService(string svcID){
+bool ServicesHandler::findServices(string serID, Services& ser){
 
-	int i = 0;
+    int i = 0;
 	for(int i = 0; i < vectorOfServices.size(); i++)
-	{
-		string id = vectorOfServices[i].getSvcID();
-		if(id.compare(svcID) == 0)
-		{
-			return vectorOfServices[i];
-		}
-		i++;
-	}
-	cout << "Service ID: "<< svcID << " Not Found" << endl;
+    {
+        string id = vectorOfServices[i].getSvcID();
+//        cout << i << ": " << id << endl;
+        if(id.compare(serID) == 0)
+        {
+            ser = vectorOfServices[i];
+            return true;
+        }
+    }
+	return false;
 }
 
 string ServicesHandler::getAvailableServices(){
@@ -166,5 +167,20 @@ string ServicesHandler::getAvailableServices(){
 	 string info;
 	 info = os.str();
 	 return info;
+
+}
+
+void ServicesHandler::viewAllServices()
+{
+	for(int i = 0; i < vectorOfServices.size(); i++)
+	{
+		string id = vectorOfServices[i].getSvcID();
+		string name = vectorOfServices[i].getSvcName();
+		long sTime = vectorOfServices[i].getSvcOperationStartTime();
+		long eTime = vectorOfServices[i].getSvcOperationEndTime();
+		int avail = vectorOfServices[i].getAvailable();
+		float fee = vectorOfServices[i].getFee();
+		cout << id << "," << name << "," << sTime << "," << eTime << "," << eTime << ",$" << fee << "," << avail << endl << endl;
+	}
 
 }

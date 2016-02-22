@@ -33,6 +33,7 @@ class BookingHandler
 		void deleteBooking(string );
 		Booking findBooking(string );
 		void changeBooking(string );
+		void printBookingDatabase();
 };
 
 

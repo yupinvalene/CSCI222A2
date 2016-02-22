@@ -23,6 +23,8 @@ class ClubFacilitiesBookingSystem{
 		void run();
 		void displayMemberMenu();
 		void bookClubFacilities();
+		void bookClubServices();
+		void viewBookingHistory();
 
 		void displayManagerMenu();
 		void createClubMember();
@@ -34,6 +36,7 @@ class ClubFacilitiesBookingSystem{
 		void updateClubFacilities();
 		void updateClubMember();
 		void deleteClubFacilities();
+
 		vector<string> split(const string &s, char delim, vector<string> &linesplit);
 
 	private:

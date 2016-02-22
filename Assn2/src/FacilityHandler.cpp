@@ -151,12 +151,12 @@ bool FacilityHandler::findFacility(string facID, Facility& fac)
 	for(int i = 0; i < vectorOfFacilities.size(); i++)
     {
         string id = vectorOfFacilities[i].getFacID();
+//        cout << i << ": " << id << endl;
         if(id.compare(facID) == 0)
         {
             fac = vectorOfFacilities[i];
             return true;
         }
-        i++;
     }
 	return false;
 }

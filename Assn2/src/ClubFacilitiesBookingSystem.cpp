@@ -85,7 +85,7 @@ ClubFacilitiesBookingSystem::ClubFacilitiesBookingSystem()
 	facilityHandler.readData();
 	serviceHandler.readData();
 	bookingHandler.readData();
-	memberID = "null";
+	memberID = "52622530";
 
 }
 
@@ -99,7 +99,9 @@ void ClubFacilitiesBookingSystem::run()
 	cout << "Welcome to the Club Facility Booking System" << endl
 		 << "=============================================" << endl;
 
-	displayManagerMenu();
+
+//	displayManagerMenu();
+	displayMemberMenu();
 
 
 }
@@ -124,9 +126,9 @@ void ClubFacilitiesBookingSystem::displayMemberMenu()
 
 		switch(choice)
 		{
-			case 'a':
-			case 'b':
-			case 'c':
+			case 'a': bookClubFacilities(); break;
+			case 'b': bookClubServices(); break;
+			case 'c': viewBookingHistory(); break;
 			case 'd':
 			case 'e':
 			case 'f':
@@ -153,10 +155,9 @@ void ClubFacilitiesBookingSystem::displayManagerMenu()
 			 << "h. Update Club Member" << endl
 			 << "i. Delete Club Facilities" << endl
 			 << "j. Delete Club Member" << endl
-			 << "k. Delete Membership" << endl
-			 << "l. Generate Report" << endl
-			 << "m. Send Notification" << endl
-			 << "n. Exit" << endl;
+			 << "k. Generate Report" << endl
+			 << "l. Send Notification" << endl
+			 << "m. Exit" << endl;
 
 		cout << "Your choice: ";
 
@@ -176,12 +177,11 @@ void ClubFacilitiesBookingSystem::displayManagerMenu()
 			case 'j':
 			case 'k':
 			case 'l':
-			case 'm':
-			case 'n': exit(-1);
+			case 'm': exit(-1);
 			default: cout << "Invalid input!" << endl << endl; break;
 		}
 	}
-	while(choice != 'n');
+	while(choice != 'm');
 }
 
 void ClubFacilitiesBookingSystem::createClubMember()
@@ -778,6 +778,7 @@ void ClubFacilitiesBookingSystem::deleteClubFacilities()
     }
 }
 
+//member's menu
 void ClubFacilitiesBookingSystem::bookClubFacilities()
 {
 	string facID;
@@ -811,13 +812,13 @@ void ClubFacilitiesBookingSystem::bookClubFacilities()
 		return;
 	}
 
-	if(!facility.getAvailable())
-	{
-		cout << "Facility unavailable!"
-			 << endl;
-
-		return;
-	}
+//	if(!facility.getAvailable())
+//	{
+//		cout << "Facility unavailable!"
+//			 << endl;
+//
+//		return;
+//	}
 
 	cout << "Enter date: ";
 
@@ -854,6 +855,89 @@ void ClubFacilitiesBookingSystem::bookClubFacilities()
 	}
 }
 
+void ClubFacilitiesBookingSystem::bookClubServices(){
+	string serID;
+	string date;
+	int startTime;
+	int endTime;
+
+	Services service;
+	bool isExist = false;
+	char confirm;
+
+
+	cout << "Book Service Facility" << endl
+		 << "=====================" << endl;
+
+
+
+	cin.ignore();
+
+	serviceHandler.viewAllServices();
+
+	cout << "Enter Service ID: ";
+
+	getline(cin, serID);
+
+	if(!serviceHandler.findServices(serID, service))
+	{
+		cout << "Services not found!"
+			 << endl;
+
+		return;
+	}
+
+	if(!service.getAvailable())
+	{
+		cout << "Facility unavailable!"
+			 << endl;
+
+		return;
+	}
+
+	cout << "Enter date: ";
+
+	getline(cin, date);
+
+	cout << "Enter Start Time(24hrs format): ";
+
+	cin >> startTime;
+
+	cout << "Enter End Time(24hrs format): ";
+
+	cin >> endTime;
+
+	cout << "Confirm booking?(y/n): ";
+
+	cin >> confirm;
+
+	if(confirm == 'y')
+	{
+		bookingHandler.addBooking(memberID, date, startTime, endTime, service.getSvcID(), service.getSvcName());
+
+		if(bookingHandler.writeData())
+		{
+			cout << "Booking added successfully!" << endl << endl;
+		}
+		else
+		{
+			cout << "Booking add fail!" << endl << endl;
+		}
+	}
+	else
+	{
+		return;
+	}
+}
+
+void ClubFacilitiesBookingSystem::viewBookingHistory(){
+	BookingHandler bh;
+
+	cout << "View Booking History" << endl
+		 << "=====================" << endl;
+
+	bh.printBookingDatabase();
+}
 
 vector<string> ClubFacilitiesBookingSystem::split(const string &s, char delim, vector<string> &linesplit)
 {

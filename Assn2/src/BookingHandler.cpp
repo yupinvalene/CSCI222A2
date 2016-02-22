@@ -163,6 +163,19 @@ void BookingHandler::changeBooking(string BookingID)
 
 }
 
+void BookingHandler::printBookingDatabase()
+{
+	for(int i = 0; i < vectorOfBooking.size(); i++){
+		cout << "Booking ID: " << vectorOfBooking[i].getBookingID() << endl
+			 << "Member ID: "  << vectorOfBooking[i].getMemberID() << endl
+			 << "Date of booking: " << vectorOfBooking[i].getDate() << endl
+			 << "Booking start time: " << vectorOfBooking[i].getBookingStartTime() << endl
+			 << "Booking end time: " << vectorOfBooking[i].getBookingEndTime() << endl
+			 << "Faci/service ID: " << vectorOfBooking[i].getFacID() << endl
+			 << "Faci/service name: " << vectorOfBooking[i].getFacName() << endl << endl;
+	}
+}
+
 
 
 

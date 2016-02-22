@@ -27,8 +27,9 @@ class ServicesHandler{
 			void addService(string, float, long, long, bool);
 
 			bool deleteService(string);
-			Services findService(string);
+			bool findServices(string, Services&);
 			string getAvailableServices();
+			void viewAllServices();
 
 	private:
 			vector<string> split(const string &s, char delim, vector<string> &linesplit);
