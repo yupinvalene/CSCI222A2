@@ -4,32 +4,7 @@
  *  Created on: 19 Feb 2016
  *      Author: Dong Bin
  */
-
-#include "Booking.h"
-#include <iostream>
-#include <vector>
-#include <fstream>
-#include <sstream>
-#include <cstdlib>
-
-using namespace std;
-
-class BookingHandler
-{
-	private:
-		vector<Booking> vectorOfBooking;
-
-	public:
-		BookingHandler();
-		vector<Booking> getVectorOfBooking();
-		void setVectorOfBooking(vector<Booking>);
-		void readData();
-		void writeData(string );
-		void addBooking(string, string, string, int, int, string, string  );
-		void deleteBooking(string );
-		Booking findBooking(string );
-		void changeBooking(string );
-};
+#include "BookingHandler.h"
 
 BookingHandler::BookingHandler()
 {
@@ -43,13 +18,11 @@ void BookingHandler::setVectorOfBooking(vector<Booking> currentBooking)
 
 void BookingHandler::readData()
 {
-	cout << "test" << endl;
-
 	string line;
 	vector<string> data;
 
 	ifstream myfile;
-	myfile.open("BookingDatabase.txt");
+	myfile.open("bookingDatabase.txt", ifstream::in);
 
 	if(myfile.is_open())
 	{
@@ -103,16 +76,47 @@ void BookingHandler::readData()
 
 }
 
-void BookingHandler::writeData(string data)
+bool BookingHandler::writeData()
 {
+	ostringstream oss;
 
+	for(int i = 0; i < vectorOfBooking.size(); i++)
+	{
+		string bookingID = vectorOfBooking[i].getBookingID();
+		string memberID = vectorOfBooking[i].getMemberID();
+		string date = vectorOfBooking[i].getDate();
+		int bookingStartTime = vectorOfBooking[i].getBookingStartTime();
+		int bookingEndTime = vectorOfBooking[i].getBookingEndTime();
+		string facID = vectorOfBooking[i].getFacID();
+		string facName = vectorOfBooking[i].getFacName();
+		oss << bookingID << "," << memberID << "," << date << "," << bookingStartTime << "," << bookingEndTime << "," << facID << "," << facName << "\n";
+	}
+
+	string info = oss.str();
+
+	ofstream outfile;
+	outfile.open("bookingDatabase.txt", ios::out | ios::trunc);
+
+	if(!outfile)
+	{
+		cout << "bookingDatabase.txt"
+			 << " opened for writing failed!!"
+			 << endl;
+
+		exit(-1);
+	}
+
+	outfile << info;
+	outfile.close();
+
+	return true;
 }
 
-void BookingHandler::addBooking(string bookID, string memberID , string date, int startTime, int endTime, string facID, string facName)
+void BookingHandler::addBooking(string memberID , string date, int startTime, int endTime, string facID, string facName)
 {
 	Booking temp;
-
-	temp.setBookingID(bookID);
+	string uid = UIDGenerator::generate();
+	temp.setBookingID(uid);
 	temp.setMemberID(memberID);
 	temp.setDate(date);
 	temp.setBookingStartTime(startTime);
