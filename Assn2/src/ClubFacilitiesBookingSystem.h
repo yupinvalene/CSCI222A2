@@ -12,6 +12,7 @@
 #include "FacilityHandler.h"
 #include "MembershipBuilder.h"
 #include "MemberHandler.h"
+#include "BookingHandler.h"
 
 using namespace std;
 
@@ -21,6 +22,8 @@ class ClubFacilitiesBookingSystem{
 		~ClubFacilitiesBookingSystem();
 		void run();
 		void displayMemberMenu();
+		void bookClubFacilities();
+
 		void displayManagerMenu();
 		void createClubMember();
 		void createClubFacility();
@@ -34,11 +37,14 @@ class ClubFacilitiesBookingSystem{
 		vector<string> split(const string &s, char delim, vector<string> &linesplit);
 
 	private:
+		string memberID;
 
 		ServicesHandler serviceHandler;
 		FacilityHandler facilityHandler;
 		MembershipBuilder membershipBuilder;
 		MemberHandler memberHandler;
+		BookingHandler bookingHandler;
+
 
 };
 

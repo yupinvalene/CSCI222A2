@@ -84,6 +84,9 @@ ClubFacilitiesBookingSystem::ClubFacilitiesBookingSystem()
 	membershipBuilder.readFile();
 	facilityHandler.readData();
 	serviceHandler.readData();
+	bookingHandler.readData();
+	memberID = "null";
+
 }
 
 ClubFacilitiesBookingSystem::~ClubFacilitiesBookingSystem()
@@ -272,7 +275,6 @@ void ClubFacilitiesBookingSystem::createClubMember()
 	{
 		cout << "Please enter the membership ID of the membership you desired: ";
 		getline(cin, membershipID);
-		cout << membershipID;
 	}
 	while(!membershipBuilder.getMembership(membershipID, membership));
 
@@ -302,6 +304,8 @@ void ClubFacilitiesBookingSystem::createClubMember()
 		cout << name << " add fail!" << endl << endl;
 	}
 
+	memberHandler.readData();
+
 	return;
 
 }
@@ -329,18 +333,12 @@ void ClubFacilitiesBookingSystem::createClubFacility()
 
 	cout << "Enter Start Time: ";
 	cin >> operationStartTime;
-	cin.clear();
-	cin.ignore(100, '\n');
 
 	cout << "Enter End Time: ";
 	cin >> operentaionEndTime;
-	cin.clear();
-	cin.ignore(100, '\n');
 
 	cout << "Is it available for booking?(y/n): ";
 	cin >> available;
-	cin.clear();
-	cin.ignore(100, '\n');
 
 	if(available == 'y')
 	{
@@ -361,6 +359,8 @@ void ClubFacilitiesBookingSystem::createClubFacility()
 	{
 		cout << "Facility add fail!" << endl << endl;
 	}
+
+	facilityHandler.readData();
 
 	return;
 }
@@ -417,6 +417,8 @@ void ClubFacilitiesBookingSystem::createClubMembership()
 		cout << rank << " add fail!" << endl << endl;
 	}
 
+	membershipBuilder.readFile();
+
 	return;
 }
 
@@ -472,6 +474,7 @@ void ClubFacilitiesBookingSystem::createClubService()
 		cout << name << " add fail!" << endl << endl;
 	}
 
+	serviceHandler.readData();
 	return;
 }
 
@@ -774,6 +777,83 @@ void ClubFacilitiesBookingSystem::deleteClubFacilities()
         cout << "Facility not found\n" << endl;
     }
 }
+
+void ClubFacilitiesBookingSystem::bookClubFacilities()
+{
+	string facID;
+	string date;
+	int startTime;
+	int endTime;
+
+	Facility facility;
+	bool isExist = false;
+	char confirm;
+
+
+	cout << "Book Club Facility" << endl
+		 << "==================" << endl;
+
+
+
+	cin.ignore();
+
+	facilityHandler.viewAllFacility();
+
+	cout << "Enter Facility ID: ";
+
+	getline(cin, facID);
+
+	if(!facilityHandler.findFacility(facID, facility))
+	{
+		cout << "Facility not found!"
+			 << endl;
+
+		return;
+	}
+
+	if(!facility.getAvailable())
+	{
+		cout << "Facility unavailable!"
+			 << endl;
+
+		return;
+	}
+
+	cout << "Enter date: ";
+
+	getline(cin, date);
+
+	cout << "Enter Start Time(24hrs format): ";
+
+	cin >> startTime;
+
+	cout << "Enter End Time(24hrs format): ";
+
+	cin >> endTime;
+
+	cout << "Confirm booking?(y/n): ";
+
+	cin >> confirm;
+
+	if(confirm == 'y')
+	{
+		bookingHandler.addBooking(memberID, date, startTime, endTime, facility.getFacID(), facility.getFacName());
+
+		if(bookingHandler.writeData())
+		{
+			cout << "Booking added successfully!" << endl << endl;
+		}
+		else
+		{
+			cout << "Booking add fail!" << endl << endl;
+		}
+	}
+	else
+	{
+		return;
+	}
+}
+
 
 vector<string> ClubFacilitiesBookingSystem::split(const string &s, char delim, vector<string> &linesplit)
 {
