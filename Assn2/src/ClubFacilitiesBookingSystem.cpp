@@ -769,8 +769,8 @@ void ClubFacilitiesBookingSystem::updateClubMember()
                     default: cout << "Please enter choices 1 to 9\n" << endl; updateClubMember();
                 }
                 // Have to write data. Need memberhandler's writeData codes
-                //memberHandler.setVectorOfMember(vectMem);
-                //memberHandler.writeData();
+                memberHandler.setVectorOfMember(vectMem);
+                memberHandler.writeData();
         }
     }
     if(found == 0)
