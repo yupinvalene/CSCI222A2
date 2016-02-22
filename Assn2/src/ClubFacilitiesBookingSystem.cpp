@@ -672,11 +672,11 @@ void ClubFacilitiesBookingSystem::updateClubMember()
 
 	vectMem = memberHandler.getVectorOfMember();
 	//for testing purposes
-	float fee = 12.50;
-	vector<string> testvect;
-	Membership ms("mID", "rank", fee, testvect);
-	Member m("Louis", "#add", "pass", "123", "email", "932131", "12-12-12", "1231231", ms);
-	vectMem.push_back(m);
+	//float fee = 12.50;
+	//vector<string> testvect;
+	//Membership ms("mID", "rank", fee, testvect);
+	//Member m("Louis", "#add", "pass", "123", "email", "932131", "12-12-12", "1231231", ms);
+	//vectMem.push_back(m);
 	//for testing purposes
     string input;
 
@@ -755,12 +755,9 @@ void ClubFacilitiesBookingSystem::updateClubMember()
                                             {
                                                 cont = 0;
                                             }
-                                            else
-                                            {
-
-                                            }
                                         }
-
+                                        mbs.setAccessRight(ars);
+                                        cout << "Member's Access rights changed\n\n";
                                     }
                                     else
                                     {
