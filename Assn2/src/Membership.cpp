@@ -8,12 +8,12 @@
 #include "Membership.h"
 
 Membership::Membership() {
-	string membershipID = "";
-	string rank = "";
-	float membershipFee = 0.0;
+	membershipID = "";
+	rank = "";
+	membershipFee = 0.0;
 }
 
-Membership::Membership(string membershipID, string rank, float membershipFee,
+Membership::Membership(string membershipID, string rank, double membershipFee,
 		vector<string> accessRight) {
 	this -> membershipID = membershipID;
 	this -> rank = rank;
@@ -28,7 +28,7 @@ string Membership::getRank() {
 	return rank;
 }
 
-float Membership::getMembershipFee() {
+double Membership::getMembershipFee() {
 	return membershipFee;
 }
 
@@ -44,7 +44,7 @@ void Membership::setRank(string rank) {
 	this -> rank = rank;
 }
 
-void Membership::setMembershipFee(float membershipFee) {
+void Membership::setMembershipFee(double membershipFee) {
 	this -> membershipFee = membershipFee;
 }
 

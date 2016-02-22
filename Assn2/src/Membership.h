@@ -19,16 +19,16 @@ class Membership{
 	public:
 
 	Membership();
-	Membership(string, string, float, vector<string>);
+	Membership(string, string, double, vector<string>);
 	~Membership();
 
 	string getRank();
-	float getMembershipFee();
+	double getMembershipFee();
 	vector<string> getAccessRight();
 	string getMembershipID();
 
 	void setRank(string);
-	void setMembershipFee(float);
+	void setMembershipFee(double);
 	void setAccessRight(vector<string>);
 	void setMembershipID(string);
 
@@ -36,7 +36,7 @@ class Membership{
 
 	private:
 	string rank;
-	float membershipFee;
+	double membershipFee;
 	vector<string> accessRight;
 	string membershipID;
 };

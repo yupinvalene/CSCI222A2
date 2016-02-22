@@ -14,6 +14,8 @@
 #include <vector>
 
 #include "Member.h"
+#include "MembershipBuilder.h"
+#include "UIDGenerator.h"
 
 using namespace std;
 
@@ -34,7 +36,7 @@ class MemberHandler{
 	void setFilename(string);
 	bool readData();
 	bool writeData();
-	void addMember(string, string, string, string, string, string, Membership);
+	void addMember(string, string, string, string, string, string,string, Membership);
 	void deleteMember(string);
 	Member findMember(string);
 	void updateMember(string, string, string, string, string, string, string, string);
@@ -46,6 +48,10 @@ class MemberHandler{
 	private:
 	vector<Member> vectorOfMember;
 	string fileName;
+	vector<string> split(const string &s, char delim, vector<string> &linesplit);
+
+	MembershipBuilder mb;
+
 };
 
 

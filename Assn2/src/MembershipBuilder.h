@@ -12,6 +12,8 @@
 #include <cstring>
 #include <cstdlib>
 #include <vector>
+#include <fstream>
+#include <sstream>
 
 #include "Membership.h"
 
@@ -27,19 +29,21 @@ class MembershipBuilder{
 
 		void setVectorOfMembership(vector<Membership>);
 
-		void buildMembership(string, string, float, vector<string>);
+		void buildMembership(string, string, double, vector<string>);
 		void setFilename(string);
 		bool readFile();
 		bool writeFile();
 		void printMembership(string);
 		void printAllMemberships();
-		void amendMembership(string, string, float, vector<string>);
+		void amendMembership(string, string, double, vector<string>);
 		bool getMembership(string, Membership&);
 
 
 	private:
 		vector<Membership> vectorOfMembership;
 		string fileName;
+		vector<string> split(const string &s, char delim, vector<string> &linesplit);
+
 };
 
 
