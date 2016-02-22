@@ -26,6 +26,7 @@ class ClubFacilitiesBookingSystem{
 		void createClubFacility();
 		void createClubMembership();
 		void createClubService();
+		void searchClubFacilities();
 		vector<string> split(const string &s, char delim, vector<string> &linesplit);
 
 	private:

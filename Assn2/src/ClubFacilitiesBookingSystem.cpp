@@ -166,7 +166,7 @@ void ClubFacilitiesBookingSystem::displayManagerMenu()
 			case 'b': createClubMember(); break;
 			case 'c': createClubMembership(); break;
 			case 'd': createClubService(); break;
-			case 'e':
+			case 'e': searchClubFacilities(); break;
 			case 'f':
 			case 'g':
 			case 'h':
@@ -344,11 +344,11 @@ void ClubFacilitiesBookingSystem::createClubFacility()
 	getline(cin, address);
 
 	cout << "Enter Start Time: ";
-	cin.ignore();
+	//cin.ignore();
 	cin >> operationStartTime;
 
 	cout << "Enter End Time: ";
-	cin.ignore();
+	//cin.ignore();
 	cin >> operentaionEndTime;
 
 	cout << "Is it available for booking?(y/n): ";
@@ -502,7 +502,49 @@ void ClubFacilitiesBookingSystem::createClubService()
 	return;
 }
 
+void ClubFacilitiesBookingSystem::searchClubFacilities(){
 
+	string faciName;
+	string faciID;
+	vector<Facility> vectorOfFacilities;
+
+	cout << "Search Club Facility" << endl
+		 << "======================" << endl
+	 	 << endl;
+
+	cout << "Enter Facility Name: ";
+	cin.ignore();
+	getline(cin, faciName);
+
+
+//	cout << "Search Club Facilities" << endl
+//		 << "======================" << endl
+//	 	 << endl;
+//
+////	cout << "Please enter name of facility: ";
+////	cin.ignore();
+////	getline(cin, faciName);
+//
+//	cout << faciName;
+
+//	if(facilityHandler.readData())
+//	{
+		vectorOfFacilities = facilityHandler.getVectorOfFacilities();
+		for(int i = 0; i < vectorOfFacilities.size(); i++){
+			if(vectorOfFacilities[i].getFacName() == faciName){
+				cout << "Facility ID: " << vectorOfFacilities[i].getFacID() << endl
+					 << "Facility name: " << faciName << endl
+					 << "Facility address: " << vectorOfFacilities[i].getFacAddress() << endl
+					 << "Facility start time: " << vectorOfFacilities[i].getFacOperationStartTime() << endl
+					 << "Facility end time: " << vectorOfFacilities[i].getFacOperationEndTime() << endl << endl;
+			}
+		}
+	}
+//	else
+//	{
+//		cout << "search failed." << endl << endl;
+//	}
+}
 
 vector<string> ClubFacilitiesBookingSystem::split(const string &s, char delim, vector<string> &linesplit)
 {
