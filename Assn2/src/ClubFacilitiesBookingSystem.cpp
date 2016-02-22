@@ -539,7 +539,7 @@ void ClubFacilitiesBookingSystem::searchClubFacilities(){
 					 << "Facility end time: " << vectorOfFacilities[i].getFacOperationEndTime() << endl << endl;
 			}
 		}
-	}
+//	}
 //	else
 //	{
 //		cout << "search failed." << endl << endl;
