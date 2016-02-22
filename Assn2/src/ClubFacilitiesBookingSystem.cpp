@@ -148,13 +148,12 @@ void ClubFacilitiesBookingSystem::displayManagerMenu()
 			 << "f. Search Club Member" << endl
 			 << "g. Update Club Facilities" << endl
 			 << "h. Update Club Member" << endl
-			 << "i. Update Membership" << endl
-			 << "j. Delete Club Facilities" << endl
-			 << "k. Delete Club Member" << endl
-			 << "l. Delete Membership" << endl
-			 << "m. Generate Report" << endl
-			 << "n. Send Notification" << endl
-			 << "o. Exit" << endl;
+			 << "i. Delete Club Facilities" << endl
+			 << "j. Delete Club Member" << endl
+			 << "k. Delete Membership" << endl
+			 << "l. Generate Report" << endl
+			 << "m. Send Notification" << endl
+			 << "n. Exit" << endl;
 
 		cout << "Your choice: ";
 
@@ -175,8 +174,7 @@ void ClubFacilitiesBookingSystem::displayManagerMenu()
 			case 'k':
 			case 'l':
 			case 'm':
-			case 'n':
-			case 'o': exit(-1);
+			case 'n': exit(-1);
 			default: cout << "Invalid input!" << endl << endl; break;
 		}
 	}
