@@ -44,7 +44,7 @@ void Authenticate::loadData()
 	Authenticate auth;
 	string data;
 	ifstream datafile;
-	datafile.open("MemberDatabase.txt");
+	datafile.open("memberDatabase.txt");
 	getline(datafile, data, '\0'); // read the whole text file as string
 
 	string delimiter = "\n";
