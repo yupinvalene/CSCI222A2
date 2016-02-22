@@ -24,7 +24,7 @@ bool ServicesHandler::readData(){
 
 	string data;
 	ifstream datafile;
-	datafile.open("servicesDatabase.txt");
+	datafile.open("servicesDatabase.txt", ifstream::in);
 	getline(datafile, data, '\0'); // read the whole text file as string
 
 	string delimiter = "\n";
@@ -45,14 +45,14 @@ bool ServicesHandler::readData(){
 		split(line, delim, linesplit);
 		data.erase(0, pos + delimiter.length());
 	}
-	int i = 0;
+	int n = 0;
 	for(int i = 0; i < linesplit.size(); i++)
 	{
-		if(i == 6)
+		if(n == 6)
 		{
-			i = 0;
+			n = 0;
 		}
-	   switch(i)
+	   switch(n)
 	   {
 		   case 0: id = linesplit[i]; break;
 		   case 1: name = linesplit[i]; break;
@@ -61,12 +61,12 @@ bool ServicesHandler::readData(){
 		   case 4: eTime = atol(linesplit[i].c_str()); break;
 		   case 5: avail = atol(linesplit[i].c_str()); break;
 	   }
-	   if(i == 5)
+	   if(n == 5)
 	   {
 		   Services service(id, name, fee, sTime, eTime, avail);
 		   vectorOfServices.push_back(service);
 	   }
-	   i++;
+	   n++;
 	}
 	datafile.close();
 
