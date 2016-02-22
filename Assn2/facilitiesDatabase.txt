@@ -1,0 +1,4 @@
+24193303,BBQ Pit 1,2 Ferna Drive,700,2300,1
+28549384,Function Room 1,55 asssa Drive,900,2300,1
+74859375,BBQ Pit 2,3 Ferna Drive,700,2300,0
+27324532,Tennis Court,2 Ferna Drive,900,2200,1
