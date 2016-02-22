@@ -167,9 +167,9 @@ void ClubFacilitiesBookingSystem::displayManagerMenu()
 			case 'c': createClubMembership(); break;
 			case 'd': createClubService(); break;
 			case 'e': searchClubFacilities(); break;
-			case 'f':
-			case 'g':
-			case 'h':
+			case 'f': searchClubMember(); break;
+			case 'g': updateClubFacilities(); break;
+			case 'h': updateClubMember(); break;
 			case 'i':
 			case 'j':
 			case 'k':
