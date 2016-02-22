@@ -20,7 +20,7 @@ class FacilityHandler
 		bool writeData();
 		void addFacility(string, string, long, long, bool);
 		bool deleteFacility(string facID);
-		Facility findFacility(string facID);
+		bool findFacility(string facID, Facility&);
 		string getAvailableFacilities();
 		vector<string> split(const string &s, char delim, vector<string> &linesplit);
 		void viewAllFacility();

@@ -89,7 +89,6 @@ void FacilityHandler::addFacility(string facName, string facAddress, long facOpe
 	string facID = UIDGenerator::generate();
     Facility fac(facID, facName, facAddress, facOperationStartTime, facOperationEndTime, available);
     vectorOfFacilities.push_back(fac);
-    cout << vectorOfFacilities.size();
 }
 
 bool FacilityHandler::writeData()
@@ -146,7 +145,7 @@ bool FacilityHandler::deleteFacility(string facID)
     return false;
 }
 
-Facility FacilityHandler::findFacility(string facID)
+bool FacilityHandler::findFacility(string facID, Facility& fac)
 {
     int i = 0;
 	for(int i = 0; i < vectorOfFacilities.size(); i++)
@@ -154,11 +153,12 @@ Facility FacilityHandler::findFacility(string facID)
         string id = vectorOfFacilities[i].getFacID();
         if(id.compare(facID) == 0)
         {
-            return vectorOfFacilities[i];
+            fac = vectorOfFacilities[i];
+            return true;
         }
         i++;
     }
-    cout << "FacilityID: "<< facID << " Not Found" << endl;
+	return false;
 }
 
 string FacilityHandler::getAvailableFacilities()
