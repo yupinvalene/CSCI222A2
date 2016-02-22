@@ -18,7 +18,7 @@ Member::Member() {
 }
 
 Member::Member(string name, string address, string memberID,
-		string password, string email, string contact,
+		string password, string email, string contact, string dob,
 		string creditCardNo, Membership membership) {
 	this -> name = name;
 	this -> address = address;
@@ -26,6 +26,7 @@ Member::Member(string name, string address, string memberID,
 	this -> memberID = memberID;
 	this -> email = email;
 	this -> contact = contact;
+	this -> dob = dob;
 	this -> creditCardNo = creditCardNo;
 	this -> membership = membership;
 }

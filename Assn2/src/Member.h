@@ -23,7 +23,7 @@ using namespace std;
 class Member{
 	public:
 		Member();
-		Member(string, string, string, string, string, string, string, Membership);
+		Member(string, string, string, string, string, string, string, string, Membership);
 		~Member();
 		
 		//accessor
