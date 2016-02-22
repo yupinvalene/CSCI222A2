@@ -546,6 +546,242 @@ void ClubFacilitiesBookingSystem::searchClubFacilities(){
 //	}
 }
 
+void ClubFacilitiesBookingSystem::searchClubMember()
+{
+    string memName;
+    bool found = 0;
+	vector<Member> vectMembers;
+
+	cout << "Search Club Members" << endl
+		 << "======================" << endl
+	 	 << endl;
+
+	cout << "Enter Member's Name: ";
+	cin.ignore();
+	getline(cin, memName);
+
+	vectMembers = memberHandler.getVectorOfMember();
+
+	for(int i = 0; i < vectMembers.size(); i++)
+    {
+        if(vectMembers[i].getName() == memName)
+        {
+            cout << "Member's ID: " << vectMembers[i].getMemberID() << endl
+                 << "Member's name: " << memName << endl
+                 << "Member's address: " << vectMembers[i].getAddress() << endl
+                 << "Member's password: " << vectMembers[i].getPassword() << endl
+                 << "Member's email: " << vectMembers[i].getEmail() << endl
+                 << "Member's contact: " << vectMembers[i].getContact() << endl
+                 << "Member's email: " << vectMembers[i].getEmail() << endl
+                 << "Member's date of birth: " << vectMembers[i].getDOB() << endl
+                 << "Member's credit card no.: " << vectMembers[i].getCreditCardNo() << endl;
+                 Membership ms = vectMembers[i].getMembership();
+                 ms.toString();
+                 found = 1;
+        }
+    }
+    if(found == 0)
+    {
+        cout << "Member not found" << endl;
+    }
+}
+
+void ClubFacilitiesBookingSystem::updateClubFacilities()
+{
+    string facID;
+    int choice;
+    bool found = 0;
+	vector<Facility> vectFac;
+
+	cout << "Update Club Facilities" << endl
+		 << "======================" << endl
+	 	 << endl;
+
+	cout << "Enter Facility ID: ";
+	cin.ignore();
+	getline(cin, facID);
+
+	vectFac = facilityHandler.getVectorOfFacilities();
+	//for testing purposes
+	//long st = 1200;
+	//long et = 1900;
+	//Facility f("123", "Name", "#address", st, et, 1);
+	//vectFac.push_back(f);
+	//for testing purposes
+    string input;
+    long input2;
+    int input3;
+
+	for(int i = 0; i < vectFac.size(); i++)
+    {
+        if(vectFac[i].getFacID() == facID)
+        {
+            found = 1;
+            cout << "Update Options" << endl
+                 << "======================" << endl;
+            cout << "1) Change name of facility" << endl
+                 << "2) Change address of facility" << endl
+                 << "3) Change operation start time of facility" << endl
+                 << "4) Change operation end time of facility" << endl
+                 << "5) Change availability of facility" << endl
+                 << "6) exit" << endl
+                 << "Your choice: ";
+                cin >> choice;
+
+                switch(choice)
+                {
+                    case 1: cout << "Enter new facility name: "; cin.ignore(); getline(cin, input);
+                            vectFac[i].setFacName(input); cout << "Facility's name changed\n\n"; break;
+                    case 2: cout << "Enter new address name: "; cin.ignore(); getline(cin, input);
+                            vectFac[i].setFacAddress(input); cout << "Facility's address changed\n\n"; break;
+                    case 3: cout << "Enter new Operation start time: "; cin >> input2;
+                            vectFac[i].setFacOperationStartTime(input2); cout << "Facility's start time changed\n\n"; break;
+                    case 4: cout << "Enter new Operation end time: "; cin >> input2;
+                            vectFac[i].setFacOperationEndTime(input2); cout << "Facility's end time changed\n\n"; break;
+                    case 5: cout << "Enter availability (1 or 0): "; cin >> input3;
+                            vectFac[i].setAvailable(input3); cout << "Facility's availability changed\n\n"; break;
+                    case 6: cout << "Going back to main menu\n" << endl; displayManagerMenu(); break;
+
+                    default: cout << "Please enter choices 1 to 6\n" << endl; updateClubFacilities();
+                }
+                facilityHandler.setVectorOfFacilities(vectFac);
+                facilityHandler.writeData();
+        }
+    }
+    if(found == 0)
+    {
+        cout << "Facility not found\n" << endl;
+    }
+}
+
+void ClubFacilitiesBookingSystem::updateClubMember()
+{
+    string memID;
+    int choice, c2;
+    bool found = 0;
+    float mfee;
+	vector<Member> vectMem;
+
+	cout << "Update Club Member" << endl
+		 << "======================" << endl
+	 	 << endl;
+
+	cout << "Enter Member's ID: ";
+	cin.ignore();
+	getline(cin, memID);
+
+	vectMem = memberHandler.getVectorOfMember();
+	//for testing purposes
+	float fee = 12.50;
+	vector<string> testvect;
+	Membership ms("mID", "rank", fee, testvect);
+	Member m("Louis", "#add", "pass", "123", "email", "932131", "12-12-12", "1231231", ms);
+	vectMem.push_back(m);
+	//for testing purposes
+    string input;
+
+	for(int i = 0; i < vectMem.size(); i++)
+    {
+        if(vectMem[i].getMemberID() == memID)
+        {
+            found = 1;
+            cout << "Update Options" << endl
+                 << "======================" << endl;
+            cout << "1) Change name of member" << endl
+                 << "2) Change address of member" << endl
+                 << "3) Change password of member" << endl
+                 << "4) Change email of member" << endl
+                 << "5) Change contact of member" << endl
+                 << "6) Change Date of Birth of member" << endl
+                 << "7) Change Credit Card No. of member" << endl
+                 << "8) Change Membership info of member" << endl
+                 << "9) exit" << endl
+                 << "Your choice: ";
+                cin >> choice;
+
+                switch(choice)
+                {
+                    case 1: cout << "Enter new member's name: "; cin.ignore(); getline(cin, input);
+                            vectMem[i].setName(input); cout << "Member's name changed\n\n"; break;
+                    case 2: cout << "Enter new address: "; cin.ignore(); getline(cin, input);
+                            vectMem[i].setAddress(input); cout << "Member's address changed\n\n"; break;
+                    case 3: cout << "Enter new password: "; cin.ignore(); getline(cin, input);
+                            vectMem[i].setPassword(input); cout << "Member's password changed\n\n"; break;
+                    case 4: cout << "Enter new email: "; cin.ignore(); getline(cin, input);
+                            vectMem[i].setEmail(input); cout << "Member's email changed\n\n"; break;
+                    case 5: cout << "Enter new contact no.: "; cin.ignore(); getline(cin, input);
+                            vectMem[i].setContact(input); cout << "Member's contact changed\n\n"; break;
+                    case 6: cout << "Enter new Date of birth: "; cin.ignore(); getline(cin, input);
+                            vectMem[i].setDOB(input); cout << "Member's Date of Birth changed\n\n"; break;
+                    case 7: cout << "Enter new credit card no.: "; cin.ignore(); getline(cin, input);
+                            vectMem[i].setCreditCardNo(input); cout << "Member's credit card no changed\n\n"; break;
+                    case 8: cout << "Choose what information to change" << endl
+                                 << "==================================" << endl
+                                 << "1) Rank\n"
+                                 << "2) Membership fees\n"
+                                 << "3) Access Rights\n"
+                                 << "Enter Choice: ";
+                                    cin >> c2;
+                                    if(c2 == 1)
+                                    {
+                                        Membership mbs = vectMem[i].getMembership();
+                                        cout << "Enter new rank: "; cin.ignore(); getline(cin, input);
+                                        mbs.setRank(input);
+                                        cout << "Member's rank changed\n\n";
+                                    }
+                                    else if(c2 == 2)
+                                    {
+                                        Membership mbs = vectMem[i].getMembership();
+                                        cout << "Enter new Fee: "; cin >> mfee;
+                                        mbs.setMembershipFee(mfee);
+                                        cout << "Member's Membership fee changed\n\n";
+                                    }
+                                    else if(c2 == 3)
+                                    {
+                                        Membership mbs = vectMem[i].getMembership();
+                                        vector<string> ars;
+                                        bool cont = 1;
+                                        char yn;
+                                        while(cont = 1)
+                                        {
+                                            cout << "Enter new access rights: "; cin.ignore(); getline(cin, input);
+                                            ars.push_back(input);
+                                            cout << "Add more access rights? (Y/N): "; cin >> yn;
+                                            if(yn == Y || yn == y)
+                                            {
+                                                cont = 1;
+                                            }
+                                            else if(yn == N || yn == n)
+                                            {
+                                                cont = 0;
+                                            }
+                                            else
+                                            {
+
+                                            }
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        cout << "Please enter choices 1 to 3\n" << endl; updateClubMember();
+                                    }
+                            break;
+                    case 9: cout << "Going back to main menu\n" << endl; displayManagerMenu(); break;
+
+                    default: cout << "Please enter choices 1 to 9\n" << endl; updateClubMember();
+                }
+                // Have to write data. Need memberhandler's writeData codes
+                //memberHandler.setVectorOfMember(vectMem);
+                //memberHandler.writeData();
+        }
+    }
+    if(found == 0)
+    {
+        cout << "Member not found\n" << endl;
+    }
+}
+
 vector<string> ClubFacilitiesBookingSystem::split(const string &s, char delim, vector<string> &linesplit)
 {
 	stringstream ss(s);
